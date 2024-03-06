@@ -1,0 +1,96 @@
+/* Signup.css */
+
+.header {
+    background-color: #8b0000;
+    color: #fff;
+    padding: 1rem 2rem;
+    text-align: center;
+  }
+  
+  .form-section {
+    padding: 2rem 0;
+  }
+  
+  .form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .highlight {
+    color: #8b0000;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .password-strength {
+    margin-top: 0.5rem;
+  }
+  
+  .progress-0 {
+    color: red;
+  }
+  
+  .progress-1 {
+    color: orange;
+  }
+  
+  .progress-2 {
+    color: yellow;
+  }
+  
+  .progress-3 {
+    color: lightgreen;
+  }
+  
+  .progress-4 {
+    color: green;
+  }
+  
+  .error-message {
+    color: #f00;
+    margin-top: 0.5rem;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #8b0000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #6a0000;
+  }
+  
+  .form-footer {
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  .footer {
+    background-color: #8b0000;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+  }
+  
