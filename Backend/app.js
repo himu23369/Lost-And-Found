@@ -5,6 +5,7 @@ const passport = require('passport');
 const cors = require('cors');
 const keys = require('./config/keys');
 const authRoutes = require('./routes/auth');
+const itemRoutes = require('./routes/items');
 
 const app = express();
 
@@ -19,13 +20,14 @@ require('./config/passport')(passport);
 // Routes
 app.use('/api/auth', authRoutes);
 
+app.use('/item', itemRoutes);
 
 // MongoDB connection
-mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(keys.mongoURI)
   .then(
     () => {
       console.log('MongoDB Connected')
-      app.listen(3000, () => console.log('Server running on port 3000'))
+      app.listen(5000, () => console.log('Server running on port 5000'))
     })
   .catch((err) => {
     console.error('MongoDB connection error:', err);

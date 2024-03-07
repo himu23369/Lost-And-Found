@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { categories } from './data/data';
 import Navbar from './Navbar'; // Import the Navbar component
 import Footer from './Footer';
-
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const ReportItemSection = () => {
   const [formData, setFormData] = useState({
@@ -21,18 +22,22 @@ const ReportItemSection = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add logic to handle form submission (e.g., send data to backend)
-    console.log('Form submitted:', formData);
-    // Reset the form after submission
-    setFormData({
-      category: '',
-      itemName: '',
-      image: null,
-      details: '',
-      status: 'found',
-    });
+    try {
+      const response = await axios.post('http://localhost:5000/item/submit', formData);
+      toast.success('Report submitted successfully');
+      console.log(response.data.message);
+      setFormData({
+        category: '',
+        itemName: '',
+        image: null,
+        details: '',
+        status: 'found',
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (

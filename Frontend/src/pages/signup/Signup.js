@@ -40,7 +40,7 @@ const Signup = () => {
       setPasswordError("Password must meet all criteria.");
     } else {
       try {
-        const response = await axios.post('/api/auth/signup', formData);
+        const response = await axios.post('http://localhost:5000/api/auth/signup', formData);
         console.log(response.data);
         router('/login');
       } catch (error) {

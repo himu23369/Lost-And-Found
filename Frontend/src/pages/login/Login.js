@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Login.css'; // Import external CSS file
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+// import {toast} from 'react-hot-toast';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const Login = () => {
     password: "",
     rememberPassword: false,
   });
+
 
   const router = useNavigate();
 
@@ -25,33 +27,14 @@ const Login = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('/api/auth/login', formData);
+      const response = await axios.post('http://localhost:5000/api/auth/login', formData);
+      // setToken(response.data.token);
+      // toast.success('Login Successful');
       console.log(response.data);
       router('/homepage');
     } catch (error) {
       console.error('Error:', error.message);
     }
-
-    // try {
-    //   const response = await fetch('http://localhost:5000/', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(formData),
-    //   });
-
-    //   if (!response.ok) {
-    //     throw new Error(`HTTP error! Status: ${response.status}`);
-    //   }
-
-    //   const data = await response.json();
-    //   console.log(data);
-
-    //   // Redirect to dashboard or handle success as needed
-    // } catch (error) {
-    //   console.error('Error:', error.message);
-    // }
   };
 
   return (

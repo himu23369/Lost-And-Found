@@ -11,6 +11,8 @@ router.post('/signup', async (req, res) => {
   try {
     const { name, email, password} = req.body;
 
+    console.log(req);
+
     // Check if user with given email already exists
     let user = await User.findOne({ email });
     if (user) {
@@ -33,11 +35,6 @@ router.post('/signup', async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-
-
-router.get('/login', async (req, res) => {
-  
-})
 
 
 // Login Route
