@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import './Login.css'; // Import external CSS file
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import {toast} from 'react-hot-toast';
+import { toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -29,11 +30,12 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', formData);
       // setToken(response.data.token);
-      // toast.success('Login Successful');
+      toast.success('Login Successful');
       console.log(response.data);
       router('/homepage');
     } catch (error) {
       console.error('Error:', error.message);
+      toast.error('Login Failed');
     }
   };
 
@@ -50,7 +52,6 @@ const Login = () => {
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
             <li><a href="#contact">Contact</a></li>
-          
           </ul>
         </nav>
       </header>

@@ -4,6 +4,8 @@ import axios from 'axios';
 import './Signup.css';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +18,7 @@ const Signup = () => {
   });
   const [passwordError, setPasswordError] = useState("");
   const [passwordStrength, setPasswordStrength] = useState(0);
-    
+
   const router = useNavigate();
 
   const handleInputChange = (e) => {
@@ -28,23 +30,51 @@ const Signup = () => {
   };
 
   const validatePassword = (password) => {
-    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-+=^])(?!.*\s).{8,15}$/;
-    return regex.test(password);
+    // Regular expressions for individual criteria
+    const containsNumber = /\d/.test(password);
+    const containsLowercase = /[a-z]/.test(password);
+    const containsUppercase = /[A-Z]/.test(password);
+    const containsSpecialCharacter = /[!@#$%&*()-+=^]/.test(password);
+    const hasValidLength = password.length >= 8 && password.length <= 15;
+
+    // Check each criterion and return specific error message if it fails
+    if (!containsNumber) {
+      return "Password must contain at least one number.";
+    } else if (!containsLowercase) {
+      return "Password must contain at least one lowercase letter.";
+    } else if (!containsUppercase) {
+      return "Password must contain at least one uppercase letter.";
+    } else if (!containsSpecialCharacter) {
+      return "Password must contain at least one special character (!@#$%&*()-+=^).";
+    } else if (!hasValidLength) {
+      return "Password must be between 8 and 15 characters long.";
+    }
+
+    // If all criteria pass, return null to indicate success
+    return null;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      setPasswordError("Passwords do not match.");
-    } else if (!validatePassword(formData.password)) {
-      setPasswordError("Password must meet all criteria.");
-    } else {
+
+    // Validate password
+    const passwordError = validatePassword(formData.password);
+
+    // Display appropriate toast if there's a password error
+    if (passwordError) {
+      toast.error(passwordError);
+      setPasswordError(passwordError); // Optionally set state for password error message
+      return; // Exit early if there's a password error
+    }
+    else {
       try {
         const response = await axios.post('http://localhost:5000/api/auth/signup', formData);
         console.log(response.data);
+        toast.success('Account Created Successfully');
         router('/login');
       } catch (error) {
         console.error('Error:', error.message);
+        toast.error('Account Creation Failed');
       }
     }
   };

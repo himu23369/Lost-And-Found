@@ -3,7 +3,8 @@ import { categories } from './data/data';
 import Navbar from './Navbar'; // Import the Navbar component
 import Footer from './Footer';
 import axios from 'axios';
-import toast from 'react-hot-toast';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ReportItemSection = () => {
   const [formData, setFormData] = useState({
@@ -26,8 +27,8 @@ const ReportItemSection = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/item/submit', formData);
-      toast.success('Report submitted successfully');
       console.log(response.data.message);
+      toast.success('Report of the item submitted to the Admin.');
       setFormData({
         category: '',
         itemName: '',
